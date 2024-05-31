@@ -12,7 +12,12 @@ namespace JobCandidateHub.DataAccessLayer
         public static IServiceCollection AddDataAccessLayerServices(this IServiceCollection services, IConfiguration configuration)
         {
 
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            //services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options =>
+                        options.UseInMemoryDatabase(databaseName: "JobCandidateHub")
+            );
+            // Use InMemory Database in non-production environement for easy run and test  
+
             services.AddScoped<IJobCandidateRepository, JobCandidateRepository>();
 
 
